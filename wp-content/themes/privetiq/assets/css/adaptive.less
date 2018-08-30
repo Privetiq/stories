@@ -1,0 +1,62 @@
+@media (max-width: 1075px) {
+  .sidebar-content {
+    display: none;
+  }
+  .site-content .site-main {
+    max-width: 100%;
+  }
+  .logo_container {
+    margin-left: 25px;
+  }
+  .minipost {
+    margin: 25px;
+  }
+}
+@media (max-width: 675px) {
+  .main-footer .footer-btn {
+    font-size: 10px;
+  }
+  .site-header {
+    padding: 0;
+    //поиск
+    .search_container {
+      height: 30px;
+      width: 30px;
+      .search-field {
+        display: none;
+      }
+      .search-submit {
+        display: block;
+        background: none;
+        padding: 0;
+        &:hover {
+          background: none;
+        }
+        .icon-search {
+          display: none;
+        }
+        .search_icon {
+          background: url("../images/search.png") no-repeat center;
+          height: 30px;
+          width: 30px;
+          display: block;
+        }
+      }
+    }
+    //книпочка добавить историю
+    .add_story {
+      margin-right: 25px;
+      padding: 0;
+      height: 30px;
+      width: 30px;
+      span {
+        display: none;
+      }
+      .mini-icon {
+        display: block;
+        font-size: 20px;
+        text-align: center;
+      }
+    }
+  }
+}
