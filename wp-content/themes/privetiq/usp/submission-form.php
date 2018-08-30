@@ -42,46 +42,48 @@ if (!defined('ABSPATH')) die();
 			<label for="user-submitted-name">Ваше Ім`я</label>
 			<input id="user-submitted-name" name="user-submitted-name" type="text" value="" placeholder=""<?php if (usp_check_required('usp_name')) echo $usp_required; ?> class="usp-input">
 		</fieldset>
-		<?php } if ($usp_options['usp_email'] == 'show' || $usp_options['usp_email'] == 'optn') { ?>
-		<fieldset class="usp-email">
-			<label for="user-submitted-email">Ваш e-mail</label>
-			<input id="user-submitted-email" name="user-submitted-email" type="text" value="" placeholder=""<?php if (usp_check_required('usp_email')) echo $usp_required; ?> class="usp-input">
-		</fieldset>
-		<?php } if ($usp_options['usp_title'] == 'show' || $usp_options['usp_title'] == 'optn') { ?>
-		
-		<fieldset class="usp-title">
-			<label for="user-submitted-title">Заголовок історії</label>
-			<input id="user-submitted-title" name="user-submitted-title" type="text" value="" placeholder=""<?php if (usp_check_required('usp_title')) echo $usp_required; ?> class="usp-input">
-		</fieldset>
-		<?php } if ($usp_options['usp_tags'] == 'show' || $usp_options['usp_tags'] == 'optn') { ?>
+		<?php }if (($usp_options['usp_category'] == 'show' || $usp_options['usp_category'] == 'optn') && ($usp_options['usp_use_cat'] == false)) { ?>
+
+            <fieldset class="usp-category">
+                <label for="user-submitted-category">Оберіть категорію</label>
+                <div class="my_usp-select">
+                    <select id="user-submitted-category" name="user-submitted-category"<?php if (usp_check_required('usp_category')) echo $usp_required; ?> class="usp-select">
+                        <?php foreach($usp_options['categories'] as $categoryId) { $category = get_category($categoryId); if (!$category) { continue; } ?>
+
+                            <option value="<?php echo $categoryId; ?>"><?php $category = get_category($categoryId); echo sanitize_text_field($category->name); ?></option>
+                        <?php } ?>
+
+                    </select>
+                </div>
+            </fieldset>
+        <?php } if ($usp_options['usp_title'] == 'show' || $usp_options['usp_title'] == 'optn') { ?>
+
+            <fieldset class="usp-title">
+                <label for="user-submitted-title">Заголовок історії</label>
+                <input id="user-submitted-title" name="user-submitted-title" type="text" value="" placeholder=""<?php if (usp_check_required('usp_title')) echo $usp_required; ?> class="usp-input">
+            </fieldset>
+        <?php } if ($usp_options['usp_content'] == 'show' || $usp_options['usp_content'] == 'optn') { ?>
+
+            <fieldset class="usp-content">
+                <label for="user-submitted-content">Напишіть свою историю <span class="label_description">(не більше 9,000 символів)</span></label>
+                <textarea id="user-submitted-content" name="user-submitted-content" rows="10" placeholder=""<?php if (usp_check_required('usp_content')) echo $usp_required; ?> class="usp-textarea" maxlength="9000"></textarea>
+            </fieldset>
+        <?php } if ($usp_options['usp_tags'] == 'show' || $usp_options['usp_tags'] == 'optn') { ?>
 		
 		<fieldset class="usp-tags">
-			<label for="user-submitted-tags">Теги</label>
-			<input id="user-submitted-tags" name="user-submitted-tags" type="text" value="" placeholder="Введіть через кому"<?php if (usp_check_required('usp_tags')) echo $usp_required; ?> class="usp-input">
+			<label for="user-submitted-tags">Теги <span>(введіть через кому)</span></label>
+			<input id="user-submitted-tags" name="user-submitted-tags" type="text" value="" placeholder=""<?php if (usp_check_required('usp_tags')) echo $usp_required; ?> class="usp-input">
 		</fieldset>
-		<?php } if ($usp_options['usp_captcha'] == 'show') { ?>
+		<?php } if ($usp_options['usp_email'] == 'show' || $usp_options['usp_email'] == 'optn') { ?>
+            <fieldset class="usp-email">
+                <label for="user-submitted-email">Ваш e-mail <span>(ніхто його  не дізнаєтся)</span> </label>
+                <input id="user-submitted-email" name="user-submitted-email" type="text" value="" placeholder=""<?php if (usp_check_required('usp_email')) echo $usp_required; ?> class="usp-input">
+            </fieldset>
+        <?php } if ($usp_options['usp_captcha'] == 'show') { ?>
 		
 		<fieldset class="usp-captcha">
 			<label for="user-submitted-captcha">Підтвердіть що ви не робот</label>
 			<input id="user-submitted-captcha" name="user-submitted-captcha" type="text" value="" placeholder="<?php esc_attr_e('Antispam Question', 'usp'); ?>"<?php echo $usp_required; ?> class="usp-input<?php echo $usp_captcha; ?>" data-parsley-excluded="true">
-		</fieldset>
-		<?php } if (($usp_options['usp_category'] == 'show' || $usp_options['usp_category'] == 'optn') && ($usp_options['usp_use_cat'] == false)) { ?>
-
-		<fieldset class="usp-category">
-			<label for="user-submitted-category">Оберіть категорію</label>
-			<select id="user-submitted-category" name="user-submitted-category"<?php if (usp_check_required('usp_category')) echo $usp_required; ?> class="usp-select">
-				<?php foreach($usp_options['categories'] as $categoryId) { $category = get_category($categoryId); if (!$category) { continue; } ?>
-				
-				<option value="<?php echo $categoryId; ?>"><?php $category = get_category($categoryId); echo sanitize_text_field($category->name); ?></option>
-				<?php } ?>
-				
-			</select>
-		</fieldset>
-		<?php } if ($usp_options['usp_content'] == 'show' || $usp_options['usp_content'] == 'optn') { ?>
-		
-		<fieldset class="usp-content">
-			<label for="user-submitted-content">Напишите свою историю <span class="label_description">(не більше 9,000 символів)</span></label>
-			<textarea id="user-submitted-content" name="user-submitted-content" rows="10" placeholder=""<?php if (usp_check_required('usp_content')) echo $usp_required; ?> class="usp-textarea" maxlength="9000"></textarea>
 		</fieldset>
 		<?php } if ($usp_recaptcha_public && $usp_recaptcha_private && $usp_options['usp_recaptcha'] == 'show') { ?>
 		
